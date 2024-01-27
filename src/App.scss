@@ -1,4 +1,52 @@
 
 //$primary:#b1eb13;
+.navbar bg-body-tertiary{
+    //height: 100%;
+  
+}
 
+.sign-logo{
+    margin-right: 10px;
+}
+
+.p1 {
+    color: white; 
+    letter-spacing: 6px;
+    font-size: 30px;
+    font-weight: bolder 
+    
+  }
+
+  @keyframes zoomInOut {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.zoom-in-out {
+    animation: zoomInOut 4s infinite ease-in-out;
+}
+
+ @keyframes fadeInOut {
+        0%, 100% {
+            opacity: 0;
+        }
+        50% {
+            opacity: 1;
+        }
+    }
+
+    .fade-in-out {
+        animation: fadeInOut 4s infinite ease-in-out;
+    }
+
+  .navbar navbar-expand-lg bg-body-tertiary{
+    background-color: black;
+  }
 @import '~bootstrap/scss/bootstrap';
