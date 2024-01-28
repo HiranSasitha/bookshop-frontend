@@ -33,20 +33,45 @@
     animation: zoomInOut 4s infinite ease-in-out;
 }
 
- @keyframes fadeInOut {
-        0%, 100% {
-            opacity: 0;
-        }
-        50% {
-            opacity: 1;
-        }
-    }
-
-    .fade-in-out {
-        animation: fadeInOut 4s infinite ease-in-out;
-    }
 
   .navbar navbar-expand-lg bg-body-tertiary{
     background-color: black;
+  }
+  .n1{
+    width: auto;
+  }
+
+  
+  .c1{
+     color:white;
+     font-weight: bold;
+     font-size: large;
+  }
+  .d1{
+   
+    background-color: rgb(41, 29, 29);
+    
+    
+  }
+  .d2{
+    background-color: rgb(36, 33, 33);
+  }
+  .d3{
+    color: white;
+    background-color: rgb(59, 50, 50);
+  }
+
+  .d4{
+    background-color: rgb(66, 44, 44);
+    color: white;
+    font-weight: bolder;
+    border-radius: 6px;
+    
+  }
+
+  .navbar.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Adjust the z-index as needed */
   }
 @import '~bootstrap/scss/bootstrap';
