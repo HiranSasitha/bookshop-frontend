@@ -3,14 +3,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-const ItemByCategory = ()=>{
-  
-  const {id} = useParams();  
+const ItemByCategory = () => {
+
+  const { id } = useParams();
   const [Category, setCategory] = useState(null);
-  const[itemByCategory,setItemByCategory] = useState(null);
-  const[categoryById,setCategoryById] = useState(null);
-  
-  const[adjustable,setAdjustable] = useState(null);
+  const [itemByCategory, setItemByCategory] = useState(null);
+  const [categoryById, setCategoryById] = useState(null);
+
+  const [adjustable, setAdjustable] = useState(null);
 
   useEffect(() => {
     getAllCategory();
@@ -24,37 +24,37 @@ const ItemByCategory = ()=>{
     setCategory(response.data);
   }
 
- 
-  const getAdjustable = async()=>{
+
+  const getAdjustable = async () => {
     const response = await axios.get("http://localhost:8080/adjusbill");
     setAdjustable(response.data);
     console.log(response.data);
   }
 
-  const getItemsByCategory = async ()=>{
+  const getItemsByCategory = async () => {
     try {
-        const response = await axios.get(`http://localhost:8080/categories/${id}/items`);
-    setItemByCategory(response.data)
+      const response = await axios.get(`http://localhost:8080/categories/${id}/items`);
+      setItemByCategory(response.data)
     } catch (error) {
-        
+
     }
-    
+
   }
 
-  const getCategoryById = async()=>{
+  const getCategoryById = async () => {
     try {
-      const response =await axios.get(`http://localhost:8080/category/${id}`);
+      const response = await axios.get(`http://localhost:8080/category/${id}`);
       setCategoryById(response.data);
-      
+
     } catch (error) {
-      
+
     }
   }
-    return(
-        <>
-        <title>Category</title>
+  return (
+    <>
+      <title>Category</title>
 
-      
+
 
       <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div className="container-fluid">
@@ -91,6 +91,12 @@ const ItemByCategory = ()=>{
 
 
           <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
+            <ul class="navbar-nav me-3">
+              <li class="nav-item">
+                <Link class="nav-link" to={"/"}> Home </Link>
+              </li>
+
+            </ul>
             <ul class="navbar-nav">
               {Category && Category.map((cat) =>
                 <li class="nav-item">
@@ -115,18 +121,18 @@ const ItemByCategory = ()=>{
       <div className='d4 mx-5 mb-5'>
         <div className="container-fluid">
           <div className='row'>
-            {adjustable && adjustable.map((adj)=><div className='text-center mt-3 mb-3'>
-                
-                <h1 className='zoom-in-out fw-bold'>
-                  Enjoy a {adj.discount}% OFF on Total bills over Rs.{adj.upToAmount}/=
-                </h1>
-                <h3>Max Discount up to Rs.{adj.maxDiscountPrice
-}.00</h3>
-                
-              </div>)}
-            
-              
-          
+            {adjustable && adjustable.map((adj) => <div className='text-center mt-3 mb-3'>
+
+              <h1 className='zoom-in-out fw-bold'>
+                Enjoy a {adj.discount}% OFF on Total bills over Rs.{adj.upToAmount}/=
+              </h1>
+              <h3>Max Discount up to Rs.{adj.maxDiscountPrice
+              }.00</h3>
+
+            </div>)}
+
+
+
           </div>
         </div>
       </div>
@@ -136,8 +142,8 @@ const ItemByCategory = ()=>{
       </div>}
 
       <div className="row mx-3" >
-        
-        {itemByCategory&& itemByCategory.map((ite) => (
+
+        {itemByCategory && itemByCategory.map((ite) => (
           <div className="card  me-4 col-lg-4 col-sm-3 col-md-2 col-12 col-xl-4 mb-4  border-dark" style={{ width: '18rem' }} key={ite.id}>
             <img src="/image/book.jpg" width="100" height="125" className="mx-auto d-block mt-2" />
             <div className="card-body">
@@ -150,51 +156,52 @@ const ItemByCategory = ()=>{
                 <p className="card-text text-decoration-line-through">RS.{ite.originalPrice}</p>
               </div>
               <Link to={`/item/${ite.id}`} className="btn btn-primary me-5">Details</Link>
+
               <button type='button' class="btn btn-outline-success">Add Cart</button>
             </div>
           </div>
         ))}
       </div>
-      <div className='d1'>   
+      <div className='d1'>
+        <div className="container-fluid">
+
+          <div className='  row ms-2'>
+
+            <div className='c1 col-12 col-md-3  mt-4 '>
+              <p><img src="/image/delivery.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Island delivery</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/payment.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Secure Payments</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/price.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Price</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/discount.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Discount</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div className="container-fluid">
-      
-      <div className='  row ms-2'>
-        
-  <div className='c1 col-12 col-md-3  mt-4 '>
-    <p><img src="/image/delivery.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Island delivery</p>
-  </div>
+        <div className='d2 row'>
+          <div className=' text-center'>
+            <img src='/image/logo.png' alt="Logo" width="200" height="100" class="d-inline-block align-text-top" />
+          </div>
+        </div>
+        <div className='d3 row'>
+          <div className=' text-center'>
+            <p className='mt-2'>Copyright © 2024- HS Bookshop - All Rights Reserved. Concept, Design & Development By Hiran</p>
+          </div>
+        </div>
+      </div>
 
-  <div className='c1 col-12 col-md-3 mt-4'>
-    <p><img src="/image/payment.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Secure Payments</p>
-  </div>
 
-  <div className='c1 col-12 col-md-3 mt-4'>
-    <p><img src="/image/price.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Price</p>
-  </div>
-
-  <div className='c1 col-12 col-md-3 mt-4'>
-    <p><img src="/image/discount.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Discount</p>
-  </div>
-</div>
-</div>
-</div>
-
-<div className="container-fluid">
-<div className='d2 row'>
-  <div className=' text-center'>
-    <img src='/image/logo.png' alt="Logo" width="200" height="100" class="d-inline-block align-text-top" />
-  </div>
-</div>
-<div className='d3 row'>
-  <div className=' text-center'>
-   <p className='mt-2'>Copyright © 2024- HS Bookshop - All Rights Reserved. Concept, Design & Development By Hiran</p>
-  </div>
-</div>
-</div>
-            
-      
-        </>
-    )
+    </>
+  )
 }
 
 export default ItemByCategory;
