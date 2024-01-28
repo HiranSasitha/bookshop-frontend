@@ -1,17 +1,22 @@
+
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
-
-const Home = () => {
+const ItemByCategory = ()=>{
+  
+  const {id} = useParams();  
   const [Category, setCategory] = useState(null);
-  const [item, setItems] = useState(null);
+  const[itemByCategory,setItemByCategory] = useState(null);
+  const[categoryById,setCategoryById] = useState(null);
+  
   const[adjustable,setAdjustable] = useState(null);
 
   useEffect(() => {
     getAllCategory();
-    getAllItems();
+    getItemsByCategory();
     getAdjustable();
+    getCategoryById();
   }, [])
 
   const getAllCategory = async () => {
@@ -19,18 +24,36 @@ const Home = () => {
     setCategory(response.data);
   }
 
-  const getAllItems = async () => {
-    const response = await axios.get("http://localhost:8080/item");
-    setItems(response.data);
-  }
+ 
   const getAdjustable = async()=>{
     const response = await axios.get("http://localhost:8080/adjusbill");
     setAdjustable(response.data);
     console.log(response.data);
   }
-  return (
-    <div>
-      <title>Home</title>
+
+  const getItemsByCategory = async ()=>{
+    try {
+        const response = await axios.get(`http://localhost:8080/categories/${id}/items`);
+    setItemByCategory(response.data)
+    } catch (error) {
+        
+    }
+    
+  }
+
+  const getCategoryById = async()=>{
+    try {
+      const response =await axios.get(`http://localhost:8080/category/${id}`);
+      setCategoryById(response.data);
+      
+    } catch (error) {
+      
+    }
+  }
+    return(
+        <>
+        <title>Category</title>
+
       
 
       <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -39,10 +62,10 @@ const Home = () => {
             <img src='/image/logo.png' alt="Logo" width="300" height="100" class="d-inline-block align-text-top" />
 
           </a>
-          <p className='p1'>A Haven for Book Lovers</p>
+          <p className='p1 text-center mx-auto'>A Haven for Book Lovers</p>
 
 
-          <div class="row">
+          {/* <div class="row">
           
             <div class="col-auto">
               <img src="/image/sign.png" width="50" height="44" class="d-inline-block align-text-top " />
@@ -52,11 +75,11 @@ const Home = () => {
                 Sign in &<br /> Create Account
               </a>
             </div>
-          </div>
-
+          </div> */}
 
         </div>
       </nav>
+
 
       <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5 sticky-top" data-bs-theme="dark">
         <div class="container-fluid">
@@ -67,7 +90,7 @@ const Home = () => {
           </button>
 
 
-          <div class="collapse navbar-collapse" id="navbarNav">
+          <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
             <ul class="navbar-nav">
               {Category && Category.map((cat) =>
                 <li class="nav-item">
@@ -107,11 +130,14 @@ const Home = () => {
           </div>
         </div>
       </div>
-            
+
+      {categoryById && <div className='c2 ms-3 mb-5'>
+        <h1 >{categoryById.name}</h1>
+      </div>}
 
       <div className="row mx-3" >
         
-        {item && item.map((ite) => (
+        {itemByCategory&& itemByCategory.map((ite) => (
           <div className="card  me-4 col-lg-4 col-sm-3 col-md-2 col-12 col-xl-4 mb-4  border-dark" style={{ width: '18rem' }} key={ite.id}>
             <img src="/image/book.jpg" width="100" height="125" className="mx-auto d-block mt-2" />
             <div className="card-body">
@@ -129,8 +155,6 @@ const Home = () => {
           </div>
         ))}
       </div>
-
-     
       <div className='d1'>   
       <div className="container-fluid">
       
@@ -167,26 +191,10 @@ const Home = () => {
   </div>
 </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </div>
-  )
-
+            
+      
+        </>
+    )
 }
 
-
-export default Home;
+export default ItemByCategory;
