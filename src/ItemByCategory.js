@@ -50,6 +50,14 @@ const ItemByCategory = () => {
 
     }
   }
+
+  const addItemCart = (ite) => {
+    const updatedItems = JSON.parse(localStorage.getItem('items')) || [];
+    const newItem = { ...ite }; // new item
+    updatedItems.push(newItem); // Add the nw item
+    localStorage.setItem('items', JSON.stringify(updatedItems)); // Update local storage
+    
+  };
   return (
     <>
       <title>Category</title>
@@ -106,10 +114,10 @@ const ItemByCategory = () => {
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <Link class="nav-link" to={"/cart"}>
                   <img src="/image/cart.png" width="30" height="25" class="d-inline-block align-text-top me-2" />
                   My Cart
-                </a>
+                </Link>
               </li>
 
             </ul>
@@ -157,7 +165,9 @@ const ItemByCategory = () => {
               </div>
               <Link to={`/item/${ite.id}`} className="btn btn-primary me-5">Details</Link>
 
-              <button type='button' class="btn btn-outline-success">Add Cart</button>
+              <button type='button' class="btn btn-outline-success" onClick={() => addItemCart(ite)}>
+  Add Cart
+</button>
             </div>
           </div>
         ))}

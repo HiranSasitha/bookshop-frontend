@@ -1,17 +1,23 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import Checkout from './Checkout';
+
 
 
 const Home = () => {
   const [Category, setCategory] = useState(null);
   const [item, setItems] = useState(null);
   const [adjustable, setAdjustable] = useState(null);
+  const navigate = useNavigate();
+ 
+  
 
   useEffect(() => {
     getAllCategory();
     getAllItems();
     getAdjustable();
+    
   }, [])
 
   const getAllCategory = async () => {
@@ -26,8 +32,24 @@ const Home = () => {
   const getAdjustable = async () => {
     const response = await axios.get("http://localhost:8080/adjusbill");
     setAdjustable(response.data);
-    console.log(response.data);
+   
   }
+
+  const addItemCart = (ite) => {
+    const updatedItems = JSON.parse(localStorage.getItem('items')) || [];
+    const newItem = { ...ite }; // new item
+    updatedItems.push(newItem); // Add the nw item
+    localStorage.setItem('items', JSON.stringify(updatedItems)); // Update local storage
+    
+  };
+  
+  
+  
+
+  const navigateCart = () => {
+  
+    navigate("/cart");
+  };
   return (
     <div>
       <title>Home</title>
@@ -83,10 +105,10 @@ const Home = () => {
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <button class="nav-link" onClick={navigateCart}>
                   <img src="/image/cart.png" width="30" height="25" class="d-inline-block align-text-top me-2" />
                   My Cart
-                </a>
+                </button>
               </li>
 
             </ul>
@@ -130,11 +152,24 @@ const Home = () => {
                 <p className="card-text text-decoration-line-through">RS.{ite.originalPrice}</p>
               </div>
               <Link to={`/item/${ite.id}`} className="btn btn-primary me-5">Details</Link>
-              <button type='button' class="btn btn-outline-success">Add Cart</button>
+              <button type='button' class="btn btn-outline-success" onClick={() => addItemCart(ite)}>
+  Add Cart
+</button>
+
             </div>
           </div>
         ))}
       </div>
+
+      {/* {orderItem && orderItem.length > 0 && <Checkout orderItem={orderItem} />} */}
+      
+
+      {/* <div>
+      {<Checkout nums = {numbers}/>}
+      </div> */}
+      
+      
+      
 
 
       <div className='d1'>

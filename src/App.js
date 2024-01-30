@@ -5,6 +5,7 @@ import Home from './Home';
 import "/node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import ItemByCategory from './ItemByCategory';
 import SingleItem from './SingleItem';
+import Checkout from './Checkout';
 function App() {
   return (
     <div className='App'>
@@ -13,6 +14,7 @@ function App() {
       <Route index element = {<Home/>}/>
       <Route path='/category/:id' element = {<ItemByCategory/>}/>
       <Route path='/item/:id' element = {<SingleItem/>}/>
+      <Route path='/cart' element ={<Checkout/>}/>
 
 
      
