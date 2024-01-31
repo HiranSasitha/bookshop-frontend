@@ -7,6 +7,8 @@ import ItemByCategory from './ItemByCategory';
 import SingleItem from './SingleItem';
 import Checkout from './Checkout';
 import AdminHome from './admin/AdminHome';
+import CategoryManage from './admin/CategoryManage';
+import ItemManage from './admin/ItemManage';
 function App() {
   return (
     <div className='App'>
@@ -17,6 +19,8 @@ function App() {
       <Route path='/item/:id' element = {<SingleItem/>}/>
       <Route path='/cart' element ={<Checkout/>}/>
       <Route path='/admin' element ={<AdminHome/>}/>
+      <Route path='/admin/categories' element ={<CategoryManage/>}/>
+      <Route path='/admin/items' element ={<ItemManage/>}/>
 
 
      

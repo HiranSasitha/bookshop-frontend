@@ -56,16 +56,16 @@ return(
                     <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
                         <ul class="navbar-nav me-3">
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Home </Link>
+                                <Link class="nav-link" to={"/admin"}> Home </Link>
                             </li>
 
                         </ul>
                         <ul class="navbar-nav">
                         <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Category </Link>
+                                <Link className="nav-link" to={"/admin/categories"} >Category</Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Items </Link>
+                                <Link class="nav-link" to={"/admin/items"}> Items </Link>
                             </li>
                             <li class="nav-item mx-3">
                                 <Link class="nav-link" to={"/"}> Order Deatils </Link>
