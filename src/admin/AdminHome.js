@@ -1,51 +1,25 @@
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
-
-const SingleItem = () => {
-    const { id } = useParams();
-    const [Category, setCategory] = useState(null);
-    const [itemById, setItemById] = useState(null);
-    const [adjustable, setAdjustable] = useState(null);
+const AdminHome = ()=>{
+    const [item, setItems] = useState(null);
 
     useEffect(() => {
-        getAllCategory();
-        getAdjustable();
-        getItemById();
-    }, [])
+        
+        getAllItems();
+        
+        
+      }, [])
 
-    const getAllCategory = async () => {
-        const response = await axios.get("http://localhost:8080/category");
-        setCategory(response.data);
-    }
-
-
-    const getAdjustable = async () => {
-        const response = await axios.get("http://localhost:8080/adjusbill");
-        setAdjustable(response.data);
-        console.log(response.data);
-    }
-
+      const getAllItems = async () => {
+        const response = await axios.get("http://localhost:8080/item");
+        setItems(response.data);
+      }
     
-
-    const getItemById = async () => {
-        try {
-            const response = await axios.get(`http://localhost:8080/item/${id}`)
-            setItemById(response.data);
-
-        } catch (error) {
-
-        }
-    }
-    return (
-        <>
-
-            <title>Category</title>
-
-
-
-            <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+return(
+    <>
+     <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
                 <div className="container-fluid">
                     <a className="navbar-brand" href="#">
                         <img src='/image/logo.png' alt="Logo" width="300" height="100" class="d-inline-block align-text-top" />
@@ -72,7 +46,7 @@ const SingleItem = () => {
 
             <nav class="navbar navbar-expand-lg bg-body-tertiary mb-5 sticky-top" data-bs-theme="dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand fw-bold" href="#">Category</a>
+                    <a class="navbar-brand fw-bold" href="#">Admin</a>
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
@@ -81,27 +55,29 @@ const SingleItem = () => {
 
                     <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
                         <ul class="navbar-nav me-3">
-                            <li class="nav-item">
+                            <li class="nav-item mx-3">
                                 <Link class="nav-link" to={"/"}> Home </Link>
                             </li>
 
                         </ul>
                         <ul class="navbar-nav">
-                            {Category && Category.map((cat) =>
-                                <li class="nav-item">
-                                    <Link class="nav-link active" aria-current="page" to={`/category/${cat.id}`}>{cat.name}</Link>
-                                </li>
-                            )}
+                        <li class="nav-item mx-3">
+                                <Link class="nav-link" to={"/"}> Category </Link>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <Link class="nav-link" to={"/"}> Items </Link>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <Link class="nav-link" to={"/"}> Order Deatils </Link>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <Link class="nav-link" to={"/"}> Manage Discount </Link>
+                            </li>
+                            <li class="nav-item mx-3">
+                                <Link class="nav-link" to={"/"}> User Deatils </Link>
+                            </li>
                         </ul>
-                        <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <Link class="nav-link" to={"/cart"}>
-                  <img src="/image/cart.png" width="30" height="25" class="d-inline-block align-text-top me-2" />
-                  My Cart
-                </Link>
-              </li>
-
-            </ul>
+                       
 
                     </div>
                 </div>
@@ -110,41 +86,41 @@ const SingleItem = () => {
             <div className='d4 mx-5 mb-5'>
                 <div className="container-fluid">
                     <div className='row'>
-                        {adjustable && adjustable.map((adj) => <div className='text-center mt-3 mb-3'>
-
-                            <h1 className='zoom-in-out fw-bold'>
-                                Enjoy a {adj.discount}% OFF on Total bills over Rs.{adj.upToAmount}/=
+                        
+                            <div className="text-center mt-3 mb-3">
+                            <h1 className='a1 zoom-in-out fw-bold'>
+                                WELCOME
                             </h1>
-                            <h3>Max Discount up to Rs.{adj.maxDiscountPrice
-                            }.00</h3>
-
-                        </div>)}
-                    </div>
-                </div>
-            </div>
-
-            {itemById &&
-
-                <div className="card mb-5 mx-auto" style={{ maxWidth: '540px' }}>
-                    <div className="row g-0">
-                        <div className="col-md-4">
-                            <img src="/image/book.jpg" className="img-fluid rounded-start" alt="..." />
-                        </div>
-                        <div className="col-md-8">
-                            <div className="card-body text-center">
-                                <h5 className="card-title">{itemById.name}</h5>
-                                <p class="card-text mb-1"><small class="text-body-secondary">({itemById.itemCategoryEntity.name})</small></p>
-                                <p className="card-text">{itemById.discription}</p>
-                                <h6 className="card-title mb-1">Discount: {(((itemById.originalPrice - itemById.sellingPrice) / itemById.originalPrice) * 100).toFixed(2)}%</h6>
-                                <p className="card-text text-decoration-line-through text-center mb-3">RS.{itemById.originalPrice}</p>
-
-                                <h5 className="card-title text-center">RS.{itemById.sellingPrice}</h5>
+                            <h3 className="a2"> ADMIN</h3>
                             </div>
+
                         </div>
                     </div>
                 </div>
-            }
-            <div className='d1'>
+
+                <div className="row mx-3" >
+
+{item && item.map((ite) => (
+  <div className="card  me-4 col-lg-4 col-sm-3 col-md-2 col-12 col-xl-4 mb-4  border-dark" style={{ width: '18rem' }} key={ite.id}>
+    <img src="/image/book.jpg" width="100" height="125" className="mx-auto d-block mt-2" />
+    <div className="card-body">
+      <h5 className="card-title mb-1">{ite.name}</h5>
+      <p className="card-text mb-2">({ite.itemCategoryEntity.name})</p>
+      <h6 className="card-title mb-1">Discount: {(((ite.originalPrice - ite.sellingPrice) / ite.originalPrice) * 100).toFixed(2)}%</h6>
+      <p className="card-text mb-1">Qty: {ite.qty}</p>
+      <div className="d-flex justify-content-between mb-2">
+        <h6 className="card-title">RS.{ite.sellingPrice}</h6>
+        <p className="card-text text-decoration-line-through">RS.{ite.originalPrice}</p>
+      </div>
+      <Link to={`/item/${ite.id}`} className="btn btn-primary me-5">Details</Link>
+      
+
+    </div>
+  </div>
+))}
+</div>
+
+                <div className='d1'>
                 <div className="container-fluid">
 
                     <div className='  row ms-2'>
@@ -184,9 +160,10 @@ const SingleItem = () => {
 
 
 
-
-        </>
-    )
+            
+    </>
+)
 }
 
-export default SingleItem;
+
+export default AdminHome;
