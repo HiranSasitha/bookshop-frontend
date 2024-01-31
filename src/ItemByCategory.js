@@ -139,8 +139,6 @@ const ItemByCategory = () => {
 
             </div>)}
 
-
-
           </div>
         </div>
       </div>

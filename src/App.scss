@@ -86,4 +86,31 @@
   .y{
     border-bottom: none;
   }
+
+  .t1{
+    font-size: 2rem;
+  color: #333; 
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  }
+
+ 
+  .t3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  h3.t2 {
+    font-size: 2rem;
+  color: #333; 
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 1px;
+  }
+
+  
+  
 @import '~bootstrap/scss/bootstrap';
