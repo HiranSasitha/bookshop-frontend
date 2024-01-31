@@ -194,6 +194,7 @@ const Checkout = () => {
             Clear Cart
           </button>}
       </div>
+      
       <table className="table table-bordered">
 
         <tbody>
