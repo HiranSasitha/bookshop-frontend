@@ -1,11 +1,10 @@
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { data, event } from "jquery";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-const ItemManage = () => {
 
-    const [category, setCategory] = useState(null);
 
+const UpadateItem = () => {
     const [name, setname] = useState("");
     const [discriptin, setDiscription] = useState("");
     const [qty, setQty] = useState("");
@@ -13,26 +12,57 @@ const ItemManage = () => {
     const [originalPrice, setOriginalPrice] = useState("");
     const [discount, setDiscount] = useState("");
     const [categoryId, setCategoryId] = useState("");
-    const [item, setItems] = useState(null);
+    const [category, setCategory] = useState(null);
+    const { id } = useParams();
+    const [itemById, setItemById] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
+        getItemById();
         getAllCategory();
-        getAllItems();
+    }, []);
+
+    useEffect(() => {
+        setInput();
+    }, [itemById]);
 
 
-    }, [])
+    const setInput = () => {
+        if (itemById) {
+            setname(itemById.name);
+            setDiscription(itemById.discription);
+            setQty(itemById.qty);
+            setPurchasePrice(itemById.purchasePrice);
+            setOriginalPrice(itemById.originalPrice);
+            setDiscount(itemById.discount);
+            setCategoryId(itemById.itemCategoryEntity.id);
+        }
+    };
+
+
+
+
+
+    const getItemById = async () => {
+        try {
+            const response = await axios.get(`http://localhost:8080/item/${id}`)
+            setItemById(response.data);
+
+
+
+        } catch (error) {
+
+        }
+    }
+
 
     const getAllCategory = async () => {
         const response = await axios.get("http://localhost:8080/category");
         setCategory(response.data);
     }
-    const getAllItems = async () => {
-        const response = await axios.get("http://localhost:8080/item");
-        setItems(response.data);
-    }
-
 
     const hadleName = (event) => {
+
         setname(event.target.value);
     }
     const hadleDiscription = (event) => {
@@ -69,7 +99,7 @@ const ItemManage = () => {
         setCategoryId(event.target.value);
     }
 
-    const handleAddItem = async (event) => {
+    const hadleUpdateItem = async (event) => {
         event.preventDefault();
         data = {
             "name": name,
@@ -81,9 +111,9 @@ const ItemManage = () => {
             "discount": discount,
             "categoryId": categoryId
         };
-        const response = await axios.post("http://localhost:8080/item", data);
+        const response = await axios.put(`http://localhost:8080/item/${id}/update`, data);
         if (response.status === 200) {
-            alert("Success Add Item");
+            alert("Success Update Item");
             // setname("");
             // setDiscription("");
             // setQty("");
@@ -91,12 +121,27 @@ const ItemManage = () => {
             // setOriginalPrice("");
             // setDiscount("");
 
-            window.location.reload();
+            navigate("/admin/items");
 
         }
     }
 
+    const deleteItem = async()=>{
 
+        const response = await axios.delete(`http://localhost:8080/item/${id}/delete`);
+        if (response.status === 200) {
+            alert("Success Delete Item");
+            // setname("");
+            // setDiscription("");
+            // setQty("");
+            // setPurchasePrice("");
+            // setOriginalPrice("");
+            // setDiscount("");
+
+            navigate("/admin/items");
+
+        }
+    }
     return (
         <>
             <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -162,20 +207,19 @@ const ItemManage = () => {
                     </div>
                 </div>
             </nav>
-
             <div className="text-center my-4">
                 <h2 className="k1">Manage Items</h2>
             </div>
 
             <div class="card mx-5 mb-5 border border-secondary rounded-3">
-                <h5 class="card-header card-header text-center fw-bold bg-secondary text-white">Add New Item</h5>
+                <h5 class="card-header card-header text-center fw-bold bg-secondary text-white">Update Item</h5>
                 <div class="card-body">
-                    <form onSubmit={handleAddItem}>
+                    <form onSubmit={hadleUpdateItem}>
                         <label className="form-label">
                             Name
                         </label>
                         <div className="form-group mb-3">
-                            <input type="text" className="form-control" onChange={hadleName} value={name} placeholder="Item Name" required />
+                            <input type="text" className="form-control" onChange={hadleName} value={name} required />
                         </div>
                         <label className="form-label">
                             Description
@@ -219,78 +263,22 @@ const ItemManage = () => {
                                     ))}
                             </select>
                         </div>
+                        <div className="card-body d-flex justify-content-between flex-column">
+                            <button type="submit" className="btn btn-primary">Update</button>
+                        </div>
 
-                        <button type="submit" className="btn btn-primary">Add</button>
+
                     </form>
+                    <div className="card-body d-flex justify-content-between flex-column">
+                        <button type="button" className="btn btn-danger mt-3" onClick={deleteItem}>Delete</button>
+                    </div>
+
+
 
                 </div>
             </div>
-
-            <div className="row mx-3" >
-
-                {item && item.map((ite) => (
-                    <div className="card  me-4 col-lg-4 col-sm-3 col-md-2 col-12 col-xl-4 mb-4  border-dark" style={{ width: '18rem' }} key={ite.id}>
-                        <img src="/image/book.jpg" width="100" height="125" className="mx-auto d-block mt-2" />
-                        <div className="card-body">
-                            <h5 className="card-title mb-1">{ite.name}</h5>
-                            <p className="card-text mb-2">({ite.itemCategoryEntity.name})</p>
-                            <h6 className="card-title mb-1">Discount: {(((ite.originalPrice - ite.sellingPrice) / ite.originalPrice) * 100).toFixed(2)}%</h6>
-                            <p className="card-text mb-1">Qty: {ite.qty}</p>
-                            <div className="d-flex justify-content-between mb-2">
-                                <h6 className="card-title">RS.{ite.sellingPrice}</h6>
-                                <p className="card-text text-decoration-line-through">RS.{ite.originalPrice}</p>
-                            </div>
-                            <Link to={`/admin/item/${ite.id}`} className="btn btn-primary me-5">Update</Link>
-
-
-                        </div>
-                    </div>
-                ))}
-            </div>
-
-            <div className='d1'>
-                <div className="container-fluid">
-
-                    <div className='  row ms-2'>
-
-                        <div className='c1 col-12 col-md-3  mt-4 '>
-                            <p><img src="/image/delivery.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Island delivery</p>
-                        </div>
-
-                        <div className='c1 col-12 col-md-3 mt-4'>
-                            <p><img src="/image/payment.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Secure Payments</p>
-                        </div>
-
-                        <div className='c1 col-12 col-md-3 mt-4'>
-                            <p><img src="/image/price.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Price</p>
-                        </div>
-
-                        <div className='c1 col-12 col-md-3 mt-4'>
-                            <p><img src="/image/discount.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Discount</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="container-fluid">
-                <div className='d2 row'>
-                    <div className=' text-center'>
-                        <img src='/image/logo.png' alt="Logo" width="200" height="100" class="d-inline-block align-text-top" />
-                    </div>
-                </div>
-                <div className='d3 row'>
-                    <div className=' text-center'>
-                        <p className='mt-2'>Copyright © 2024- HS Bookshop - All Rights Reserved. Concept, Design & Development By Hiran</p>
-                    </div>
-                </div>
-            </div>
-
-
-
-
 
         </>
     )
 }
-
-export default ItemManage;
+export default UpadateItem;
