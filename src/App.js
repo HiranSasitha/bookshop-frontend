@@ -10,6 +10,8 @@ import AdminHome from './admin/AdminHome';
 import CategoryManage from './admin/CategoryManage';
 import ItemManage from './admin/ItemManage';
 import UpadateItem from './admin/UpdateItem';
+import OrderDetails from './admin/OrderDetails';
+import ManageDiscount from './admin/ManageDiscount';
 function App() {
   return (
     <div className='App'>
@@ -23,6 +25,8 @@ function App() {
       <Route path='/admin/categories' element ={<CategoryManage/>}/>
       <Route path='/admin/items' element ={<ItemManage/>}/>
       <Route path='/admin/item/:id' element ={<UpadateItem/>}/>
+      <Route path='/admin/order_details' element ={<OrderDetails/>}/>
+      <Route path='/admin/manage_discount' element ={<ManageDiscount/>}/>
 
 
      

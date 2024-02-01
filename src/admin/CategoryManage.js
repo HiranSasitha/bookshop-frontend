@@ -84,10 +84,10 @@ return(
                                 <Link class="nav-link" to={"/admin/items"}> Items </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Order Deatils </Link>
+                                <Link class="nav-link" to={"/admin/order_details"}> Order Deatils </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Manage Discount </Link>
+                                <Link class="nav-link" to={"/admin/manage_discount"}> Manage Discount </Link>
                             </li>
                             <li class="nav-item mx-3">
                                 <Link class="nav-link" to={"/"}> User Deatils </Link>

@@ -148,10 +148,10 @@ const ItemManage = () => {
                                 <Link class="nav-link" to={"/admin/items"}> Items </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Order Deatils </Link>
+                                <Link class="nav-link" to={"/admin/order_details"}> Order Deatils </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Manage Discount </Link>
+                                <Link class="nav-link" to={"/admin/manage_discount"}> Manage Discount </Link>
                             </li>
                             <li class="nav-item mx-3">
                                 <Link class="nav-link" to={"/"}> User Deatils </Link>
@@ -190,19 +190,19 @@ const ItemManage = () => {
                             <input type="text" className="form-control" onChange={hadleQty} value={qty} placeholder="Quantity" required />
                         </div>
                         <label className="form-label">
-                            Purchase Price
+                            Purchase Price (Rs)
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadlePurchasePrice} value={purchasePrice} placeholder="Purchase Price" required />
                         </div>
                         <label className="form-label">
-                            Original Price
+                            Original Price (Rs)
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadleOriginalPrice} value={originalPrice} placeholder="Original Price" required />
                         </div>
                         <label className="form-label">
-                            Discount Price
+                            Discount Price (Rs)
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadleDiscount} value={discount} placeholder="Discount Price" required />

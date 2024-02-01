@@ -193,10 +193,10 @@ const UpadateItem = () => {
                                 <Link class="nav-link" to={"/admin/items"}> Items </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Order Deatils </Link>
+                                <Link class="nav-link" to={"/admin/order_details"}> Order Deatils </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> Manage Discount </Link>
+                                <Link class="nav-link" to={"/admin/manage_discount"}> Manage Discount </Link>
                             </li>
                             <li class="nav-item mx-3">
                                 <Link class="nav-link" to={"/"}> User Deatils </Link>
@@ -234,19 +234,19 @@ const UpadateItem = () => {
                             <input type="text" className="form-control" onChange={hadleQty} value={qty} placeholder="Quantity" required />
                         </div>
                         <label className="form-label">
-                            Purchase Price
+                            Purchase Price (Rs)
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadlePurchasePrice} value={purchasePrice} placeholder="Purchase Price" required />
                         </div>
                         <label className="form-label">
-                            Original Price
+                            Original Price (Rs)
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadleOriginalPrice} value={originalPrice} placeholder="Original Price" required />
                         </div>
                         <label className="form-label">
-                            Discount Price
+                            Discount Price (Rs)    
                         </label>
                         <div className="form-group mb-3">
                             <input type="text" className="form-control" onChange={hadleDiscount} value={discount} placeholder="Discount Price" required />
@@ -277,6 +277,46 @@ const UpadateItem = () => {
 
                 </div>
             </div>
+
+            <div className='d1'>
+                <div className="container-fluid">
+
+                    <div className='  row ms-2'>
+
+                        <div className='c1 col-12 col-md-3  mt-4 '>
+                            <p><img src="/image/delivery.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Island delivery</p>
+                        </div>
+
+                        <div className='c1 col-12 col-md-3 mt-4'>
+                            <p><img src="/image/payment.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Secure Payments</p>
+                        </div>
+
+                        <div className='c1 col-12 col-md-3 mt-4'>
+                            <p><img src="/image/price.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Price</p>
+                        </div>
+
+                        <div className='c1 col-12 col-md-3 mt-4'>
+                            <p><img src="/image/discount.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Discount</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div className="container-fluid">
+                <div className='d2 row'>
+                    <div className=' text-center'>
+                        <img src='/image/logo.png' alt="Logo" width="200" height="100" class="d-inline-block align-text-top" />
+                    </div>
+                </div>
+                <div className='d3 row'>
+                    <div className=' text-center'>
+                        <p className='mt-2'>Copyright © 2024- HS Bookshop - All Rights Reserved. Concept, Design & Development By Hiran</p>
+                    </div>
+                </div>
+            </div>
+
+
+
 
         </>
     )
