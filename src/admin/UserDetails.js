@@ -2,20 +2,20 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-const OrderDetails = () => {
-  const [orderDetails, setOrderDetails] = useState(null);
+const UserDetails = ()=>{
+    const [user,setUser] = useState();
 
-  useEffect(() => {
-    getAllOrderDetails();
-  }, [])
+    useEffect(()=>{
+        getUser();
+    },[])
 
-  const getAllOrderDetails = async () => {
-    const response = await axios.get("http://localhost:8080/order");
-    setOrderDetails(response.data);
-  }
-  return (
-    <>
-      <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
+    const getUser = async()=>{
+      const response = await axios.get("http://localhost:8080/user");
+      setUser(response.data);
+    }
+    return(
+        <>
+        <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
         <div className="container-fluid">
           <a className="navbar-brand" href="#">
             <img src='/image/logo.png' alt="Logo" width="300" height="100" class="d-inline-block align-text-top" />
@@ -79,27 +79,27 @@ const OrderDetails = () => {
         </div>
       </nav>
       <div className="text-center my-4">
-        <h2 className="k1">Order Details</h2>
+        <h2 className="k1">User Details</h2>
       </div>
 
       <table className="custom-table table table-success table-striped  mb-4 ">
         <thead>
           <tr>
-            <th>Customer Name</th>
-            <th>Total (Rs)</th>
-            <th>Tax (%)</th>
-            <th>Discount(%)</th>
-            <th>Date&Time</th>
+            <th>Name</th>
+            <th>User Roll </th>
+            <th>Email </th>
+            <th>Adress</th>
+            
           </tr>
         </thead>
         <tbody>
-          {orderDetails && orderDetails.map((ord) =>
+          {user && user.map((users) =>
             <tr>
-              <td>{ord.userEntity.userName}</td>
-              <td>{ord.total}</td>
-              <td>{ord.tax}</td>
-              <td>{ord.discount}</td>
-              <td>{ord.orderTime}</td>
+              <td>{users.userName}</td>
+              <td>{users.userCategoryEntity.userType}</td>
+              <td>{users.email}</td>
+              <td>{users.address}</td>
+              
 
             </tr>
           )}
@@ -145,11 +145,8 @@ const OrderDetails = () => {
       </div>
 
 
-
-
-
-    </>
-  )
+        </>
+    )
 }
 
-export default OrderDetails;
+export default UserDetails;

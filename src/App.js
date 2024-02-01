@@ -12,6 +12,7 @@ import ItemManage from './admin/ItemManage';
 import UpadateItem from './admin/UpdateItem';
 import OrderDetails from './admin/OrderDetails';
 import ManageDiscount from './admin/ManageDiscount';
+import UserDetails from './admin/UserDetails';
 function App() {
   return (
     <div className='App'>
@@ -27,6 +28,7 @@ function App() {
       <Route path='/admin/item/:id' element ={<UpadateItem/>}/>
       <Route path='/admin/order_details' element ={<OrderDetails/>}/>
       <Route path='/admin/manage_discount' element ={<ManageDiscount/>}/>
+      <Route path='/admin/user_details' element ={<UserDetails/>}/>
 
 
      

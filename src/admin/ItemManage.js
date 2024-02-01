@@ -154,7 +154,7 @@ const ItemManage = () => {
                                 <Link class="nav-link" to={"/admin/manage_discount"}> Manage Discount </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> User Deatils </Link>
+                                <Link class="nav-link" to={"/admin/user_details"}> User Deatils </Link>
                             </li>
                         </ul>
 

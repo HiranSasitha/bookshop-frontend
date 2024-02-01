@@ -144,7 +144,7 @@ const upadeMangeDiscount = async ()=>{
                                 <Link class="nav-link" to={"/admin/manage_discount"}> Manage Discount </Link>
                             </li>
                             <li class="nav-item mx-3">
-                                <Link class="nav-link" to={"/"}> User Deatils </Link>
+                                <Link class="nav-link" to={"/admin/user_details"}> User Deatils </Link>
                             </li>
                         </ul>
                        
@@ -195,6 +195,43 @@ const upadeMangeDiscount = async ()=>{
 
                 </div>
             </div>
+
+            <div className='d1'>
+        <div className="container-fluid">
+
+          <div className='  row ms-2'>
+
+            <div className='c1 col-12 col-md-3  mt-4 '>
+              <p><img src="/image/delivery.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Island delivery</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/payment.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Secure Payments</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/price.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Price</p>
+            </div>
+
+            <div className='c1 col-12 col-md-3 mt-4'>
+              <p><img src="/image/discount.png" width="50" height="35" class="d-inline-block align-text-top me-2" />Best Discount</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="container-fluid">
+        <div className='d2 row'>
+          <div className=' text-center'>
+            <img src='/image/logo.png' alt="Logo" width="200" height="100" class="d-inline-block align-text-top" />
+          </div>
+        </div>
+        <div className='d3 row'>
+          <div className=' text-center'>
+            <p className='mt-2'>Copyright © 2024- HS Bookshop - All Rights Reserved. Concept, Design & Development By Hiran</p>
+          </div>
+        </div>
+      </div>
 
         </>
     )
