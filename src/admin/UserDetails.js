@@ -1,18 +1,27 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const UserDetails = ()=>{
     const [user,setUser] = useState();
+    const navigate = useNavigate();
 
     useEffect(()=>{
         getUser();
     },[])
 
     const getUser = async()=>{
-      const response = await axios.get("http://localhost:8080/user");
+      const response = await axios.get("http://localhost:8080/auth/usersd");
       setUser(response.data);
     }
+
+    const handleLogOut = ()=>{
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("items");
+      navigate("/");
+    }
+    
     return(
         <>
         <nav class="n1 navbar bg-dark border-bottom border-body" data-bs-theme="dark">
@@ -73,7 +82,14 @@ const UserDetails = ()=>{
                 <Link class="nav-link" to={"/admin/user_details"}> User Deatils </Link>
               </li>
             </ul>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
 
+            </ul>
 
           </div>
         </div>

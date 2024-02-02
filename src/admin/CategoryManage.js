@@ -1,11 +1,12 @@
 import axios from "axios";
 import { event } from "jquery";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const CategoryManage = ()=>{
     const [catName,setCatnName] = useState("");
     const [category, setCategory] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllCategory();
@@ -17,10 +18,18 @@ const CategoryManage = ()=>{
         setCatnName(event.target.value);
     }
 
+    const handleLogOut = ()=>{
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("items");
+      navigate("/");
+    }
+    
+
     const handeleAdd = async(event)=>{
         event.preventDefault();
         const data = { "name":catName};
-        const response = await axios.post("http://localhost:8080/category",data);
+        const response = await axios.post("http://localhost:8080/admin/category",data);
         console.log(response);
         if(response.status===200){
                 alert("Success Add Category");
@@ -30,7 +39,7 @@ const CategoryManage = ()=>{
         }
     }
     const getAllCategory = async () => {
-        const response = await axios.get("http://localhost:8080/category");
+        const response = await axios.get("http://localhost:8080/auth/category");
         setCategory(response.data);
       }
 return(
@@ -94,7 +103,14 @@ return(
                             </li>
                         </ul>
                        
+                        <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
 
+            </ul>
                     </div>
                 </div>
             </nav>

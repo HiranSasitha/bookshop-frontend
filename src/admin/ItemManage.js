@@ -1,7 +1,7 @@
 import axios from "axios";
 import { data, event } from "jquery";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 const ItemManage = () => {
 
     const [category, setCategory] = useState(null);
@@ -14,6 +14,7 @@ const ItemManage = () => {
     const [discount, setDiscount] = useState("");
     const [categoryId, setCategoryId] = useState("");
     const [item, setItems] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         getAllCategory();
@@ -23,13 +24,21 @@ const ItemManage = () => {
     }, [])
 
     const getAllCategory = async () => {
-        const response = await axios.get("http://localhost:8080/category");
+        const response = await axios.get("http://localhost:8080/auth/category");
         setCategory(response.data);
     }
     const getAllItems = async () => {
-        const response = await axios.get("http://localhost:8080/item");
+        const response = await axios.get("http://localhost:8080/auth/item");
         setItems(response.data);
     }
+
+    const handleLogOut = ()=>{
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("items");
+        navigate("/");
+      }
+      
 
 
     const hadleName = (event) => {
@@ -81,7 +90,7 @@ const ItemManage = () => {
             "discount": discount,
             "categoryId": categoryId
         };
-        const response = await axios.post("http://localhost:8080/item", data);
+        const response = await axios.post("http://localhost:8080/admin/item", data);
         if (response.status === 200) {
             alert("Success Add Item");
             // setname("");
@@ -158,7 +167,14 @@ const ItemManage = () => {
                             </li>
                         </ul>
 
+                        <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
 
+            </ul>
                     </div>
                 </div>
             </nav>

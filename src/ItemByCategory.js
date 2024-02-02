@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const ItemByCategory = () => {
 
@@ -11,6 +11,7 @@ const ItemByCategory = () => {
   const [categoryById, setCategoryById] = useState(null);
 
   const [adjustable, setAdjustable] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     getAllCategory();
@@ -20,20 +21,28 @@ const ItemByCategory = () => {
   }, [])
 
   const getAllCategory = async () => {
-    const response = await axios.get("http://localhost:8080/category");
+    const response = await axios.get("http://localhost:8080/auth/category");
     setCategory(response.data);
   }
 
+  const handleLogOut = ()=>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("items");
+    navigate("/");
+  }
+  
+
 
   const getAdjustable = async () => {
-    const response = await axios.get("http://localhost:8080/adjusbill");
+    const response = await axios.get("http://localhost:8080/auth/adjusbill");
     setAdjustable(response.data);
     console.log(response.data);
   }
 
   const getItemsByCategory = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/categories/${id}/items`);
+      const response = await axios.get(`http://localhost:8080/user/categories/${id}/items`);
       setItemByCategory(response.data)
     } catch (error) {
 
@@ -43,7 +52,7 @@ const ItemByCategory = () => {
 
   const getCategoryById = async () => {
     try {
-      const response = await axios.get(`http://localhost:8080/category/${id}`);
+      const response = await axios.get(`http://localhost:8080/user/category/${id}`);
       setCategoryById(response.data);
 
     } catch (error) {
@@ -101,7 +110,7 @@ const ItemByCategory = () => {
           <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
             <ul class="navbar-nav me-3">
               <li class="nav-item">
-                <Link class="nav-link" to={"/"}> Home </Link>
+                <Link class="nav-link" to={"/Home"}> Home </Link>
               </li>
 
             </ul>
@@ -111,6 +120,14 @@ const ItemByCategory = () => {
                   <Link class="nav-link active" aria-current="page" to={`/category/${cat.id}`}>{cat.name}</Link>
                 </li>
               )}
+              <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
+
+            </ul>
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">

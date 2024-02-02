@@ -40,10 +40,18 @@ const ManageDiscount = ()=> {
 
 
     const getAdjustable = async () => {
-        const response = await axios.get("http://localhost:8080/adjusbill");
+        const response = await axios.get("http://localhost:8080/auth/adjusbill");
         setAdjustable(response.data);
        
       }
+
+      const handleLogOut = ()=>{
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("items");
+        navigate("/");
+      }
+      
 
     const handleDiscount = (event)=>{
         const value = event.target.value;
@@ -79,7 +87,7 @@ const upadeMangeDiscount = async ()=>{
         "maxDiscountPrice": maxDiscountPrice
     }
 
-    const response = await axios.put(`http://localhost:8080/adjusbill/${1}/update`,data);
+    const response = await axios.put(`http://localhost:8080/admin/adjusbill/${1}/update`,data);
     if (response.status === 200) {
         alert("Success Update");
         navigate("/admin");
@@ -148,7 +156,14 @@ const upadeMangeDiscount = async ()=>{
                             </li>
                         </ul>
                        
+                        <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
 
+            </ul>
                     </div>
                 </div>
             </nav>

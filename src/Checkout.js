@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const Checkout = () => {
   const storedItems = JSON.parse(localStorage.getItem('items')) || [];
+  const userDetails = JSON.parse(localStorage.getItem('user')) || [];
   const [itemsWithQuantity, setItemsWithQuantity] = useState(        // create another item array with new quantity
     storedItems.map((item) => ({ ...item, quantity: 1 }))
   );
@@ -30,11 +31,11 @@ const Checkout = () => {
   }, [])
 
   const getAllCategory = async () => {
-    const response = await axios.get("http://localhost:8080/category");
+    const response = await axios.get("http://localhost:8080/auth/category");
     setCategory(response.data);
   }
   const getAdjustable = async () => {
-    const response = await axios.get("http://localhost:8080/adjusbill");
+    const response = await axios.get("http://localhost:8080/auth/adjusbill");
     setAdjustable(response.data);
     console.log(response.data);
   }
@@ -47,6 +48,13 @@ const Checkout = () => {
     window.location.reload();
 
   };
+  const handleLogOut = ()=>{
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("items");
+    navigate("/");
+  }
+  
 
   const clearCartItem = (itemId) => {
     const updatedItems = itemsWithQuantity.filter((item) => item.id !== itemId);// remove realted item
@@ -81,15 +89,15 @@ const Checkout = () => {
         itemId: item.id,
         qty: item.quantity,
       }));
-
-      const userId = 2;
+      
+      const userId = userDetails.id;
 
       const data = {
         "userId": userId,
         "orderItemDtos": orderItemDtos
       };
 
-      const response = await axios.post("http://localhost:8080/order", data);
+      const response = await axios.post("http://localhost:8080/user/order", data);
       console.log(response);
 
       if (response.status === 200) {
@@ -146,7 +154,7 @@ const Checkout = () => {
           <div class="collapse navbar-collapse" id="navbarNav" onClick={() => window.location.reload()}>
             <ul class="navbar-nav me-3">
               <li class="nav-item">
-                <Link class="nav-link" to={"/"}> Home </Link>
+                <Link class="nav-link" to={"/Home"}> Home </Link>
               </li>
 
             </ul>
@@ -156,6 +164,14 @@ const Checkout = () => {
                   <Link class="nav-link active" aria-current="page" to={`/category/${cat.id}`}>{cat.name}</Link>
                 </li>
               )}
+            </ul>
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
+
             </ul>
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">

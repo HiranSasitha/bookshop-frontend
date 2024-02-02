@@ -5,7 +5,7 @@ import Checkout from './Checkout';
 
 
 
-const Home = () => {
+const Home1 = () => {
   const [Category, setCategory] = useState(null);
   const [item, setItems] = useState(null);
   const [adjustable, setAdjustable] = useState(null);
@@ -35,25 +35,16 @@ const Home = () => {
    
   }
 
-  const addItemCart = (ite) => {
-    const updatedItems = JSON.parse(localStorage.getItem('items')) || [];
-    const newItem = { ...ite }; // new item
-    updatedItems.push(newItem); // Add the nw item
-    localStorage.setItem('items', JSON.stringify(updatedItems)); // Update local storage
-    
-  };
-  
-  const handleLogOut = ()=>{
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    localStorage.removeItem("items");
-    navigate("/");
+ 
+  const addItemCart = ()=>{
+    navigate("/auth/login");
   }
+  
   
 
   const navigateCart = () => {
   
-    navigate("/cart");
+    navigate("/auth/login");
   };
   return (
     <div>
@@ -69,17 +60,17 @@ const Home = () => {
           <p className='p1'>A Haven for Book Lovers</p>
 
 
-          {/* <div class="row">
+          <div class="row">
 
             <div class="col-auto">
               <img src="/image/sign.png" width="50" height="44" class="d-inline-block align-text-top " />
             </div>
             <div class="col-auto">
-              <a href="#" class="d-inline-block me-2 zoom-in-out fw-bold">
+              <Link to={"/auth/login"} class="d-inline-block me-2 zoom-in-out fw-bold">
                 Sign in &<br /> Create Account
-              </a>
+              </Link>
             </div>
-          </div> */}
+          </div>
 
 
         </div>
@@ -97,25 +88,18 @@ const Home = () => {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav me-3">
               <li class="nav-item">
-                <Link class="nav-link" to={"/Home"}> Home </Link>
+                <Link class="nav-link" to={"/"}> Home </Link>
               </li>
 
             </ul>
             <ul class="navbar-nav">
               {Category && Category.map((cat) =>
                 <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to={`/category/${cat.id}`}>{cat.name}</Link>
+                  <Link class="nav-link active" aria-current="page" to={"/auth/login"}>{cat.name}</Link>
                 </li>
               )}
             </ul>
-            <ul class="navbar-nav ms-auto">
-              <li class="nav-item">
-                <button class="nav-link" onClick={handleLogOut}>
-                  Log Out
-                </button>
-              </li>
-
-            </ul>
+            
             <ul class="navbar-nav ms-auto">
               <li class="nav-item">
                 <button class="nav-link" onClick={navigateCart}>
@@ -164,8 +148,8 @@ const Home = () => {
                 <h6 className="card-title">RS.{ite.sellingPrice}</h6>
                 <p className="card-text text-decoration-line-through">RS.{ite.originalPrice}</p>
               </div>
-              <Link to={`/item/${ite.id}`} className="btn btn-primary me-5">Details</Link>
-              <button type='button' class="btn btn-outline-success" onClick={() => addItemCart(ite)}>
+              <Link to={`/auth/login`} className="btn btn-primary me-5">Details</Link>
+              <button type='button' class="btn btn-outline-success" onClick={() => addItemCart()}>
   Add Cart
 </button>
 
@@ -243,4 +227,4 @@ const Home = () => {
 }
 
 
-export default Home;
+export default Home1;

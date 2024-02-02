@@ -45,7 +45,7 @@ const UpadateItem = () => {
 
     const getItemById = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/item/${id}`)
+            const response = await axios.get(`http://localhost:8080/user/item/${id}`)
             setItemById(response.data);
 
 
@@ -57,7 +57,7 @@ const UpadateItem = () => {
 
 
     const getAllCategory = async () => {
-        const response = await axios.get("http://localhost:8080/category");
+        const response = await axios.get("http://localhost:8080/auth/category");
         setCategory(response.data);
     }
 
@@ -74,6 +74,14 @@ const UpadateItem = () => {
             setQty(value);
         }
     }
+
+    const handleLogOut = ()=>{
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        localStorage.removeItem("items");
+        navigate("/");
+      }
+      
     const hadlePurchasePrice = (event) => {
         // Validate if the input is a valid double value
         const value = event.target.value;
@@ -111,7 +119,7 @@ const UpadateItem = () => {
             "discount": discount,
             "categoryId": categoryId
         };
-        const response = await axios.put(`http://localhost:8080/item/${id}/update`, data);
+        const response = await axios.put(`http://localhost:8080/admin/item/${id}/update`, data);
         if (response.status === 200) {
             alert("Success Update Item");
             // setname("");
@@ -128,7 +136,7 @@ const UpadateItem = () => {
 
     const deleteItem = async()=>{
 
-        const response = await axios.delete(`http://localhost:8080/item/${id}/delete`);
+        const response = await axios.delete(`http://localhost:8080/admin/item/${id}/delete`);
         if (response.status === 200) {
             alert("Success Delete Item");
             // setname("");
@@ -202,7 +210,14 @@ const UpadateItem = () => {
                                 <Link class="nav-link" to={"/admin/user_details"}> User Deatils </Link>
                             </li>
                         </ul>
+                        <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <button class="nav-link" onClick={handleLogOut}>
+                  Log Out
+                </button>
+              </li>
 
+            </ul>
 
                     </div>
                 </div>
