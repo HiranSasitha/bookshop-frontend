@@ -1,3 +1,23 @@
+# Online BookShop (Point Of Sale System)
+(Front-End)
+
+
+## Features
+
+- **Sales Management:** Streamline the checkout process and manage sales efficiently.
+- **Inventory Control:** Monitor stock levels, product details,manage Discount and inventory movements.
+- **User Authentication:** Secure login system for employees and administrators.
+
+## Technologies Used
+
+- React js
+- Bootstrap
+- Sass
+- Axios
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
